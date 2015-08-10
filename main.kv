@@ -1,0 +1,49 @@
+#:kivy 1.0.9
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+ScreenManagement:
+    canvas.before:
+        BorderImage:
+            texture: self.background_image.texture
+            size: self.size
+    transition: SlideTransition()
+    MainScreen:
+    OtherScreen:
+
+
+
+<MainScreen>:
+    name: "main"
+    id: main_screen
+
+    GridLayout:
+        cols: 2
+        size_hint: (1, 0.5)
+        center_y: (root.height / 3)
+        Button:
+            on_release:
+                root.manager.transition.direction = "left"
+                root.manager.current = "other"
+            text: "We are in Main Screen"
+            font_size: 20
+            size_hint: (.1, .1)
+            top: root.top / 2
+        Button:
+            on_release:main_screen.close_app()
+            text: "We are in Main Screen"
+            font_size: 20
+            size_hint: (.1, .1)
+            top: root.top / 2
+
+
+<OtherScreen>:
+    name: "other"
+    id: other_screen
+    Button:
+        on_release:
+            root.manager.transition.direction = "right"
+            root.manager.current = "main"
+        text: "We are in other Screen"
+        font_size: 30
+        size_hint: (0.5, 0.5)
