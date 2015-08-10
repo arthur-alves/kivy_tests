@@ -8,7 +8,9 @@ from kivy.properties import ObjectProperty
 MAINAPP = ''
 
 class MainScreen(Screen):
-
+    img_l = ObjectProperty(
+        Image(source='bg.png')
+        )
     def close_app(self):
         MAINAPP.stop()
 

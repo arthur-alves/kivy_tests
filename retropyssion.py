@@ -4,8 +4,11 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 
+MAINAPP = ''
+
+
 class ScreenController(ScreenManager):
-	background = ObjectProperty(Image(source="bg.jpg"))
+    background = ObjectProperty(Image(source="bg.jpg"))
 
 
 class MainScreen(Screen):
@@ -13,7 +16,7 @@ class MainScreen(Screen):
 
 
 class OtherScreen(Screen):
-    pass
+    background = ObjectProperty(Image(source="select_bar.png"))
 
 
 class ViewApp(App):
@@ -21,4 +24,5 @@ class ViewApp(App):
         return ScreenController()
 
 if __name__ == "__main__":
-    ViewApp().run()
+    MAINAPP = ViewApp()
+    MAINAPP.run()
