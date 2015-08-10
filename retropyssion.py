@@ -16,9 +16,9 @@ class OtherScreen(Screen):
     pass
 
 
-class MainApp(App):
+class ViewApp(App):
     def build(self):
         return ScreenController()
 
 if __name__ == "__main__":
-    MainApp().run()
+    ViewApp().run()
