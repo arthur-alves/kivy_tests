@@ -1,10 +1,12 @@
 from kivy.app import App
-from kivy.uix.widget import Widget
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
+from kivy.core.window import Window
 
 MAINAPP = ''
+
+Window.fullscreen = 1
 
 
 class ScreenController(ScreenManager):
