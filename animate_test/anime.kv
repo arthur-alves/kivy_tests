@@ -1,0 +1,19 @@
+#:kivy 1.7.9
+
+<ScreenController>
+    MainScreen:
+
+
+
+<MainScreen>:
+    name: "main_screen"
+    id: main_screen
+    sprite: my_sprite
+    Image:
+        id: my_sprite
+        source: "atlas://../piu/testatlas/0"
+
+    Button:
+        text: "Animate"
+        on_press: main_screen.update()
+        size_hint: (0.2, 0.2)
