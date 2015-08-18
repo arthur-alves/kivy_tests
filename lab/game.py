@@ -18,7 +18,7 @@ class GameView(Widget):
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(partial(game_view.sprite.play, "run"), 0.2)
+        Clock.schedule_interval(partial(game_view.sprite.play, "run"), 0.1)
         return game_view
 
 
