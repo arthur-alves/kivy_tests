@@ -2,6 +2,8 @@
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
 from kivy.properties import NumericProperty
+from kivy.clock import Clock
+from functools import partial
 
 
 class SpriteError(Exception):
@@ -22,17 +24,17 @@ class Sprite(Widget):
         self.num_sprites = NumericProperty(0)
         self.atlas = atlas
 
+    def animate(self, key, dt):
+        animation = self.sprite_sheet[key]
+        sprite_len = len(animation) - 1
+        if self.num_sprites > (sprite_len):
+            self.num_sprites = 0
+        self.canvas.clear()
+        with self.canvas:
+            Rectangle(
+                texture=self.atlas[str(animation[self.num_sprites])]
+            )
+        self.num_sprites += 1
+
     def play(self, key, dt):
-        test = dt / 1000
-        print int(test)
-        if int(test % 2) == 0:
-            animation = self.sprite_sheet[key]
-            sprite_len = len(animation) - 1
-            if self.num_sprites > (sprite_len):
-                self.num_sprites = 0
-            self.canvas.clear()
-            with self.canvas:
-                Rectangle(
-                    texture=self.atlas[str(animation[self.num_sprites])]
-                )
-            self.num_sprites += 1
+        Clock.schedule_interval(partial(self.animate, key), 0.5)

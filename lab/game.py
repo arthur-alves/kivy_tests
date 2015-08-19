@@ -3,7 +3,6 @@ from kivy.atlas import Atlas
 from kivy.uix.widget import Widget
 from kivy.clock import Clock
 from sprite import Sprite
-from functools import partial
 
 
 class GameView(Widget):
@@ -16,10 +15,14 @@ class GameView(Widget):
         self.add_widget(self.sprite)
 
 
+    def update(self, dt):
+        self.sprite.play("run", dt)
+
+
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(partial(game_view.sprite.play, "run"), 1/60.0)
+        Clock.schedule_interval(game_view.update, 1/60.0)
         return game_view
 
 
