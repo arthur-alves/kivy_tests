@@ -10,15 +10,16 @@ class GameView(Widget):
 
     def __init__(self, **kwargs):
         super(GameView, self).__init__(**kwargs)
-        self.sprite = Sprite(sprite_sheet={"run": ["ryu_1", "ryu_2", "ryu_3" ]})
+        self.ryu_atlas = Atlas("imgs/ryu.atlas")
+        self.sprite_sheet = {"run": ["ryu_1", "ryu_2", "ryu_3"]}
+        self.sprite = Sprite(self.sprite_sheet, self.ryu_atlas)
         self.add_widget(self.sprite)
-
 
 
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(partial(game_view.sprite.play, "run"), 0.1)
+        Clock.schedule_interval(partial(game_view.sprite.play, "run"), 1/60.0)
         return game_view
 
 
