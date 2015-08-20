@@ -54,7 +54,8 @@ class Sprite(Widget):
             self.canvas.clear()
             with self.canvas:
                 Rectangle(
-                    texture=self.atlas[str(animation[self.num_sprites])]
+                    texture=self.atlas[str(animation[self.num_sprites])],
+                    pos=self.pos, size=self.size
                 )
 
             if not self.pause_frame:
