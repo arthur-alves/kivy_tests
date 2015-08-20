@@ -13,16 +13,20 @@ class GameView(Widget):
         self.sprite_sheet = {"run": ["ryu_1", "ryu_2", "ryu_3"]}
         self.sprite = Sprite(self.sprite_sheet, self.ryu_atlas)
         self.add_widget(self.sprite)
-
+        # must be int, not delta time
+        self.fps = 0
 
     def update(self, dt):
-        self.sprite.play("run", dt)
+        self.fps += 1
+        self.sprite.play("run", self.fps)
+        if self.fps > 30:
+            self.fps = 0
 
 
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(game_view.update, 1/60.0)
+        Clock.schedule_interval(game_view.update, 1 / 30.0)
         return game_view
 
 
