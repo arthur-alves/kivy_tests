@@ -3,6 +3,9 @@ from kivy.atlas import Atlas
 from kivy.uix.widget import Widget
 from kivy.clock import Clock
 from sprite import Sprite
+from kivy.core.window import Window
+
+Window.clearcolor = [1, 1, 1, 1]
 
 
 class GameView(Widget):
