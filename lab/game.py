@@ -22,6 +22,7 @@ class GameView(Widget):
 
     def update(self, dt):
         self.fps += 1
+        self.sprite.x += 5
         self.sprite.play("run", self.fps)
         if self.fps > 30:
             self.fps = 0

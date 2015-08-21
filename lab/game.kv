@@ -1,0 +1,10 @@
+#:kivy 1.7.9
+
+<GameView>
+
+	Button:
+		text: "click to flip"
+		top: root.top - 10
+		on_press: 
+			root.sprite.flip_h()
+
