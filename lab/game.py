@@ -18,6 +18,7 @@ class GameView(Widget):
         self.add_widget(self.sprite)
         # must be int, not delta time
         self.fps = 0
+        self.sprite.flip = True
 
     def update(self, dt):
         self.fps += 1
