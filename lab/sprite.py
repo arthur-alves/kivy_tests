@@ -1,8 +1,6 @@
 # coding: utf-8
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
-from kivy.properties import NumericProperty
-from kivy.vector import Vector
 
 
 class SpriteError(Exception):
@@ -56,14 +54,14 @@ class Sprite(Widget):
                 self.num_sprites = 0
 
             self.canvas.clear()
-            if self.flip:                
+            if self.flip:
                 self.atlas[str(animation[self.num_sprites])].flip_horizontal()
                 with self.canvas:
                     Rectangle(
                         texture=self.atlas[str(animation[self.num_sprites])],
                         pos=self.pos, size=self.size
                     )
-            else:                
+            else:
                 with self.canvas:
                     Rectangle(
                         texture=self.atlas[str(animation[self.num_sprites])],
@@ -76,7 +74,3 @@ class Sprite(Widget):
     def flip_h(self):
         self.flip = True
         self.num_sprites = 0
-
-
-    def move(self):
-        self.x = self.x + 10
