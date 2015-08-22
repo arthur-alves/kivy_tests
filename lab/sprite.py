@@ -14,16 +14,16 @@ class Sprite(Widget):
 
     Keyword arguments:
 
-    sprites_info -- is a dict with atlas keys list. See bellow:
+    sprites_info: -- is a dict with atlas keys list. See bellow:
             my_atlas_map = {
                 "run": ["ryu_1", "ryu_2", "ryu_3"]
             }
-            "run" Key is a name of animation and a list in key "run" is a atlas
-            keys mapped to use on animation.
+            "run" Key is a name of animation and a list in key "run" is a 
+            atlas keys mapped to use on animation.
 
 
     atlas -- is a kivy atlas instance. The sprites_info lists keys must be a
-        atlas keys
+            atlas keys
 
     """
 
@@ -49,28 +49,26 @@ class Sprite(Widget):
         if fps % self.sprite_fps == 0:
             animation = self.sprite_sheet[key]
             sprite_len = len(animation) - 1
-            if self.num_sprites > sprite_len:
-                self.flip = False
+            if self.num_sprites > sprite_len:                
                 self.num_sprites = 0
 
             self.canvas.clear()
             if self.flip:
-                self.atlas[str(animation[self.num_sprites])].flip_horizontal()
-                with self.canvas:
-                    Rectangle(
-                        texture=self.atlas[str(animation[self.num_sprites])],
-                        pos=self.pos, size=self.size
-                    )
-            else:
-                with self.canvas:
-                    Rectangle(
-                        texture=self.atlas[str(animation[self.num_sprites])],
-                        pos=self.pos, size=self.size
-                    )
+                # flip all textures
+                for i in animation:
+                    self.atlas[str(i)].flip_horizontal()
+                # after that set flip to False to enable flip again
+                self.flip = False
+            with self.canvas:
+                Rectangle(
+                    texture=self.atlas[str(animation[self.num_sprites])],
+                    pos=self.pos, size=self.size
+                )
 
             if not self.pause_frame:
                 self.num_sprites += 1
 
     def flip_h(self):
+        """Flip horizontal current animation"""
         self.flip = True
         self.num_sprites = 0
