@@ -14,6 +14,8 @@ ScreenManager:
 			root.sprite.flip_h()
 
 	Image:
-		source: "imgs/ryu_3.png"
-		top: root.top - 30
+		texture: root.tile_atlas["grass_center"]
+		allow_stretch: True
+		pos_hint: {"x":0, "y":0}
 		size_hint: (0.2, 0.2)
+
