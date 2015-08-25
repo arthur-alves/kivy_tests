@@ -14,21 +14,24 @@ class Sprite(Widget):
 
     Keyword arguments:
 
-    sprites_info: -- is a dict with atlas keys list. See bellow:
+    sprites_info -- is a dict with atlas keys list. See bellow:
             my_atlas_map = {
                 "run": ["ryu_1", "ryu_2", "ryu_3"]
             }
-            "run" Key is a name of animation and a list in key "run" is a 
-            atlas keys mapped to use on animation.
+            "run" Key is a name of animation and a list in key "run" is a atlas
+            keys mapped to use on animation.
 
 
     atlas -- is a kivy atlas instance. The sprites_info lists keys must be a
-            atlas keys
+        atlas keys
 
     """
 
     def __init__(self, sprites_info, atlas, **kwargs):
         super(Sprite, self).__init__(**kwargs)
+        self.speed = 0
+        self.gravity = 2
+        self.jump_force = 25
         self.num_sprites = 0
         # Sprite_sheet need to be reference of atlas keys and ids
         self.sprite_sheet = sprites_info
@@ -49,26 +52,34 @@ class Sprite(Widget):
         if fps % self.sprite_fps == 0:
             animation = self.sprite_sheet[key]
             sprite_len = len(animation) - 1
-            if self.num_sprites > sprite_len:                
+            if self.num_sprites > sprite_len:
+                self.flip = False
                 self.num_sprites = 0
 
             self.canvas.clear()
             if self.flip:
-                # flip all textures
-                for i in animation:
-                    self.atlas[str(i)].flip_horizontal()
-                # after that set flip to False to enable flip again
-                self.flip = False
-            with self.canvas:
-                Rectangle(
-                    texture=self.atlas[str(animation[self.num_sprites])],
-                    pos=self.pos, size=self.size
-                )
+                self.atlas[str(animation[self.num_sprites])].flip_horizontal()
+                with self.canvas:
+                    Rectangle(
+                        texture=self.atlas[str(animation[self.num_sprites])],
+                        pos=self.pos, size=self.size
+                    )
+            else:
+                with self.canvas:
+                    Rectangle(
+                        texture=self.atlas[str(animation[self.num_sprites])],
+                        pos=self.pos, size=self.size
+                    )
 
             if not self.pause_frame:
                 self.num_sprites += 1
 
     def flip_h(self):
-        """Flip horizontal current animation"""
         self.flip = True
         self.num_sprites = 0
+
+    def gravity_on(self, **kwargs):
+        self.speed += self.gravity
+        self.y -= self.speed
+        if self.y < 42:
+            self.y = 42

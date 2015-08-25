@@ -15,9 +15,9 @@ class GameView(Screen):
     def __init__(self, **kwargs):
         super(GameView, self).__init__(**kwargs)
         self.ryu_atlas = Atlas("imgs/ryu.atlas")
-
         self.ryu_sheet = {"run": ["ryu_1", "ryu_2", "ryu_3"]}
         self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas)
+        self.sprite.y = 500
         self.add_widget(self.sprite)
         self.sprite.size_hint = [1.0 / x * 10 for x in self.sprite.size]
         print self.sprite.size, self.sprite.size_hint
@@ -28,8 +28,12 @@ class GameView(Screen):
     def update(self, dt):
         self.fps += 1
         self.sprite.play("run", self.fps)
+        self.sprite.gravity_on()
         if self.fps > 30:
             self.fps = 0
+
+    def on_touch_down(self, touch):
+        self.sprite.speed = -self.sprite.jump_force
 
 
 class GameApp(App):
