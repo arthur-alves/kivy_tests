@@ -60,18 +60,16 @@ class Sprite(Widget):
 
             self.canvas.clear()
             if self.flip:
-                self.atlas[str(animation[self.num_sprites])].flip_horizontal()
-                with self.canvas:
-                    Rectangle(
-                        texture=self.atlas[str(animation[self.num_sprites])],
-                        pos=self.pos, size=self.size
-                    )
-            else:
-                with self.canvas:
-                    Rectangle(
-                        texture=self.atlas[str(animation[self.num_sprites])],
-                        pos=self.pos, size=self.size
-                    )
+                # flip all textures
+                for i in animation:
+                    self.atlas[str(i)].flip_horizontal()
+                # after that set flip to False to enable flip again
+                self.flip = False
+            with self.canvas:
+                Rectangle(
+                    texture=self.atlas[str(animation[self.num_sprites])],
+                    pos=self.pos, size=self.size
+                )
 
             if not self.pause_frame:
                 self.num_sprites += 1
