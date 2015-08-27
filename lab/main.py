@@ -15,9 +15,7 @@ __version__ = '0.1'
 
 
 class ScreenManagement(ScreenManager):
-    background_image = ObjectProperty(
-        Image(source='imgs/forest8bit.jpg')
-    )
+    pass
 
 
 class GameView(Screen):
@@ -28,13 +26,15 @@ class GameView(Screen):
 
     def __init__(self, **kwargs):
         super(GameView, self).__init__(**kwargs)
-        self.ryu_atlas = Atlas("imgs/ryu.atlas")
-        self.ryu_sheet = {"run": ["ryu_1", "ryu_2", "ryu_3"]}
+        self.ryu_atlas = Atlas("imgs/megaboy/mini.atlas")
+        self.ryu_sheet = {"run": ["run_1", "run_2", "run_3", "run_4"]}
         self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas)
         self.sprite.y = 500
         self.sprite.x = 100
-        self.sprite.sprite_fps = 6
+        self.sprite.sprite_fps = 2
         self.add_widget(self.sprite)
+        self.rigth = True
+        self.back = False
         self.sprite.size_hint = [1.0 / x * 10 for x in self.sprite.size]
         print self.sprite.size, self.sprite.size_hint
         # must be int, not delta time
@@ -45,8 +45,28 @@ class GameView(Screen):
         self.fps += 1
         self.sprite.play("run", self.fps)
         self.sprite.gravity_on()
+        self.walk_way()
         if self.fps > 30:
             self.fps = 0
+
+    def walk_way(self):
+        print self.sprite.x, self.width
+        if self.sprite.x < self.width - self.sprite.width and self.rigth:
+            self.sprite.x += 6
+        else:
+            if not self.back:
+                self.back = True
+                self.sprite.flip_h()
+
+            self.rigth = False
+
+        if self.sprite.x > self.width - self.width and not self.rigth:
+            self.sprite.x += -6
+        else:
+            if self.back:
+                self.back = False
+                self.sprite.flip_h()
+            self.rigth = True
 
     def jump(self):
         if self.sprite.jumps < 2:
@@ -57,7 +77,7 @@ class GameView(Screen):
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(game_view.update, 1 / 60.0)
+        Clock.schedule_interval(game_view.update, 1 / 30.0)
         return game_view
 
 

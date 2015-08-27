@@ -28,8 +28,8 @@ class Sprite(Widget):
 
     """
     speed = NumericProperty(0)
-    gravity = NumericProperty(0.5)
-    jump_force = NumericProperty(10)
+    gravity = NumericProperty(1.5)
+    jump_force = NumericProperty(20)
     num_sprites = NumericProperty(0)
     jumps = NumericProperty(2)
 
@@ -58,13 +58,13 @@ class Sprite(Widget):
                 self.flip = False
                 self.num_sprites = 0
 
-            self.canvas.clear()
             if self.flip:
                 # flip all textures
                 for i in animation:
                     self.atlas[str(i)].flip_horizontal()
                 # after that set flip to False to enable flip again
                 self.flip = False
+            self.canvas.clear()
             with self.canvas:
                 Rectangle(
                     texture=self.atlas[str(animation[self.num_sprites])],

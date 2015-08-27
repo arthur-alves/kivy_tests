@@ -1,12 +1,9 @@
-#:kivy 1.0.9
+#:kivy 1.9.0
 #: import SlideTransition kivy.uix.screenmanager.SlideTransition
 
 
 ScreenManagement:
-    canvas.before:
-        BorderImage:
-            texture: self.background_image.texture
-            size: self.size
+
 	GameView:
 
 
@@ -18,7 +15,7 @@ ScreenManagement:
             size: self.size
 	Button:
 		text: "click to flip"
-		top: root.top - 10
+		pos_hint: {"top":1, "left": 1}
 		size_hint: (0.2, 0.2)
 		on_press:
 			root.sprite.flip_h()
