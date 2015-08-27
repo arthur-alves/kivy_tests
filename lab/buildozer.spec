@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = Game
+title = My Application
 
 # (str) Package name
-package.name = game
+package.name = myapp
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -29,7 +29,7 @@ version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
 
 # (str) Application versioning (method 2)
-# version = 0.1
+# version = 1.2.0
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
@@ -49,7 +49,7 @@ requirements = kivy
 #icon.filename = %(source.dir)s/data/icon.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
-orientation = all
+orientation = landscape
 
 # (bool) Indicate if the application should be fullscreen or not
 fullscreen = 1
