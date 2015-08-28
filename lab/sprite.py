@@ -2,7 +2,6 @@
 from kivy.graphics import Rectangle
 from kivy.properties import NumericProperty
 from kivy.uix.image import Image
-from time import sleep
 
 class SpriteError(Exception):
     """To return specific error"""
@@ -29,7 +28,6 @@ class Sprite(Image):
         self.pause_frame = False
         # control flip but...
         self.flip = False
-        sleep(1)
 
     def play(self, key, fps):
         """Play the animation selected by the key in dict passed in
