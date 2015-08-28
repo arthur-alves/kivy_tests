@@ -28,10 +28,10 @@ class GameView(Screen):
         super(GameView, self).__init__(**kwargs)
         self.ryu_atlas = Atlas("imgs/megaboy/mini.atlas")
         self.ryu_sheet = {"run": ["run_1", "run_2", "run_3", "run_4"]}
-        self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas)
+        self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas, source="imgs/megaboy/mini.atlas/run_1")
         self.sprite.y = 500
         self.sprite.x = 100
-        self.sprite.sprite_fps = 6
+        self.sprite.sprite_fps = 8
         self.add_widget(self.sprite)
         self.rigth = True
         self.back = False

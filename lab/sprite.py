@@ -1,16 +1,15 @@
 # coding: utf-8
-from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
 from kivy.properties import NumericProperty
 from kivy.uix.image import Image
-
+from time import sleep
 
 class SpriteError(Exception):
     """To return specific error"""
     pass
 
 
-class Sprite(Widget):
+class Sprite(Image):
 
     speed = NumericProperty(0)
     gravity = NumericProperty(1.5)
@@ -22,9 +21,7 @@ class Sprite(Widget):
         super(Sprite, self).__init__(**kwargs)
         # Sprite_sheet need to be reference of atlas keys and ids
         self.sprite_sheet = sprites_info
-        # atlas to connect with sprite_sheet info
-        self.image = Image(source="", size=self.size)
-        self.add_widget(self.image)
+        # atlas to connect with sprite_sheet infos
         self.atlas = atlas
         # to control animation speed
         self.sprite_fps = 2
@@ -32,14 +29,14 @@ class Sprite(Widget):
         self.pause_frame = False
         # control flip but...
         self.flip = False
+        sleep(1)
 
     def play(self, key, fps):
         """Play the animation selected by the key in dict passed in
         sprites arg
         """
+
         # Here use self.sprite_fps to control velocity of animation
-        self.image.pos = self.pos
-        self.image.size = self.size
         if fps % self.sprite_fps == 0:
             animation = self.sprite_sheet[key]
             sprite_len = len(animation) - 1
@@ -53,7 +50,7 @@ class Sprite(Widget):
                     self.atlas[str(i)].flip_horizontal()
                 # after that set flip to False to enable flip again
                 self.flip = False
-            self.image.texture = self.atlas[str(animation[self.num_sprites])]
+            self.texture = self.atlas[str(animation[self.num_sprites])]
             # self.canvas.clear()
             # with self.canvas:
             #     Rectangle(
