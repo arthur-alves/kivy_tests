@@ -49,12 +49,6 @@ class Sprite(Image):
                 # after that set flip to False to enable flip again
                 self.flip = False
             self.texture = self.atlas[str(animation[self.num_sprites])]
-            # self.canvas.clear()
-            # with self.canvas:
-            #     Rectangle(
-            #         texture=self.atlas[str(animation[self.num_sprites])],
-            #         pos=self.pos, size=self.size
-            #     )
 
             if not self.pause_frame:
                 self.num_sprites += 1
