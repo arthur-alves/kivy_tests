@@ -2,6 +2,7 @@
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle
 from kivy.properties import NumericProperty
+from kivy.uix.image import Image
 
 
 class SpriteError(Exception):
@@ -10,23 +11,7 @@ class SpriteError(Exception):
 
 
 class Sprite(Widget):
-    """This class provide a simple sprite widget based on atlas,  mapping
-    info in a dict with atlas keys in lists
 
-    Keyword arguments:
-
-    sprites_info -- is a dict with atlas keys list. See bellow:
-            my_atlas_map = {
-                "run": ["ryu_1", "ryu_2", "ryu_3"]
-            }
-            "run" Key is a name of animation and a list in key "run" is a atlas
-            keys mapped to use on animation.
-
-
-    atlas -- is a kivy atlas instance. The sprites_info lists keys must be a
-        atlas keys
-
-    """
     speed = NumericProperty(0)
     gravity = NumericProperty(1.5)
     jump_force = NumericProperty(20)
@@ -38,6 +23,8 @@ class Sprite(Widget):
         # Sprite_sheet need to be reference of atlas keys and ids
         self.sprite_sheet = sprites_info
         # atlas to connect with sprite_sheet info
+        self.image = Image(source="", size=self.size)
+        self.add_widget(self.image)
         self.atlas = atlas
         # to control animation speed
         self.sprite_fps = 2
@@ -51,6 +38,8 @@ class Sprite(Widget):
         sprites arg
         """
         # Here use self.sprite_fps to control velocity of animation
+        self.image.pos = self.pos
+        self.image.size = self.size
         if fps % self.sprite_fps == 0:
             animation = self.sprite_sheet[key]
             sprite_len = len(animation) - 1
@@ -64,12 +53,13 @@ class Sprite(Widget):
                     self.atlas[str(i)].flip_horizontal()
                 # after that set flip to False to enable flip again
                 self.flip = False
-            self.canvas.clear()
-            with self.canvas:
-                Rectangle(
-                    texture=self.atlas[str(animation[self.num_sprites])],
-                    pos=self.pos, size=self.size
-                )
+            self.image.texture = self.atlas[str(animation[self.num_sprites])]
+            # self.canvas.clear()
+            # with self.canvas:
+            #     Rectangle(
+            #         texture=self.atlas[str(animation[self.num_sprites])],
+            #         pos=self.pos, size=self.size
+            #     )
 
             if not self.pause_frame:
                 self.num_sprites += 1

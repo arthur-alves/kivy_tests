@@ -31,7 +31,7 @@ class GameView(Screen):
         self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas)
         self.sprite.y = 500
         self.sprite.x = 100
-        self.sprite.sprite_fps = 2
+        self.sprite.sprite_fps = 6
         self.add_widget(self.sprite)
         self.rigth = True
         self.back = False
@@ -77,7 +77,7 @@ class GameView(Screen):
 class GameApp(App):
     def build(self):
         game_view = GameView()
-        Clock.schedule_interval(game_view.update, 1 / 30.0)
+        Clock.schedule_interval(game_view.update, 1 / 60.0)
         return game_view
 
 
