@@ -26,16 +26,16 @@ class GameView(Screen):
 
     def __init__(self, **kwargs):
         super(GameView, self).__init__(**kwargs)
-        self.ryu_atlas = Atlas("imgs/megaboy/mini.atlas")
-        self.ryu_sheet = {"run": ["run_1", "run_2", "run_3", "run_4"]}
-        self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas, source="imgs/megaboy/mini.atlas/run_1")
+        self.ryu_atlas = Atlas("imgs/mage.atlas")
+        self.ryu_sheet = {"run": ["0", "1", "2"]}
+        self.sprite = Sprite(self.ryu_sheet, self.ryu_atlas)
         self.sprite.y = 500
         self.sprite.x = 100
         self.sprite.sprite_fps = 8
         self.add_widget(self.sprite)
         self.rigth = True
         self.back = False
-        self.sprite.size_hint = [1.0 / x * 10 for x in self.sprite.size]
+        self.sprite.size_hint = [1.0 / x * 20 for x in self.sprite.size]
         print self.sprite.size, self.sprite.size_hint
         # must be int, not delta time
         self.fps = 0

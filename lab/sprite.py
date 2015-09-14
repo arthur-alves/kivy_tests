@@ -24,6 +24,8 @@ class Sprite(Image):
         self.atlas = atlas
         # to control animation speed
         self.sprite_fps = 2
+        # allow resize
+        self.allow_stretch = True
         # to pause animation
         self.pause_frame = False
         # control flip but...
